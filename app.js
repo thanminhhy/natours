@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const compression = require('compression');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
@@ -80,7 +81,6 @@ app.use(
 );
 
 //Development logging
-console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -119,6 +119,8 @@ app.use(
     ],
   })
 );
+
+app.use(compression());
 
 //Test middleware
 //use middleware and manipulate request
